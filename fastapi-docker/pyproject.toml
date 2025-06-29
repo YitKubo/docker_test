@@ -1,0 +1,12 @@
+[project]
+name = "update-poetry"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "Your Name", email = "you@example.com" }
+]
+requires-python = ">=3.11"
+dependencies = ["fastapi (>=0.115.14,<0.116.0)", "uvicorn (>=0.34.3,<0.35.0)", "numpy (>=2.3.1,<3.0.0)"]
+
+[tool.poetry]
+package-mode = false

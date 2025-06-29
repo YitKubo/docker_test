@@ -1,0 +1,10 @@
+version: '3'
+services:
+  update_poetry:
+    build: .
+    volumes:
+    #  - .:/update_poetry
+      - ./poetry.lock:/update_poetry/poetry.lock
+      - ./pyproject.toml:/update_poetry/pyproject.toml
+    command: sh -c "chmod +x mk_poetry_files.sh && ./mk_poetry_files.sh"
+

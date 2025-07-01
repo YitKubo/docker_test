@@ -1,0 +1,8 @@
+version: "3"
+services:
+  app:
+    build: .
+    volumes:
+      - ../docker_test:/workspace/docker_test
+    runtime: nvidia
+    tty: true

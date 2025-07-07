@@ -69,7 +69,7 @@ python3 --version
 
 ---
 
-## ✅ 5. VSCodeからアタッチして編集
+## ✅ 5. VSCodeからアタッチして編集(起動中のコンテナに入る)
 
 1. 左下「><」クリック → `Attach to Running Container...`
 2. `my-dev-container` を選択

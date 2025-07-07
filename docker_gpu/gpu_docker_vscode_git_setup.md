@@ -46,11 +46,15 @@ docker build -t my-gpu-dev-env .
 ## ✅ 4. コンテナを起動（Git管理コードをマウント）
 
 ```bash
+docker rm my-dev-container  # ← 既存のがあるなら削除
 docker run --gpus all -dit \
   --name my-dev-container \
   -v $(pwd):/workspace \
   -w /workspace \
   my-gpu-dev-env
+
+docker start -ai my-dev-container
+python3 --version
 ```
 
 ### コマンド解説

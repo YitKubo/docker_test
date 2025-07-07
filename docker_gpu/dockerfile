@@ -16,4 +16,4 @@ WORKDIR /workspace
 # /workspace 配下にクローン
 RUN git clone https://github.com/YitKubo/docker_test.git /workspace/docker_test
 
-CMD [ "sleep", "infinity" ]
+CMD ["bash"]

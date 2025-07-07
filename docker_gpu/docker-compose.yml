@@ -1,8 +1,18 @@
 version: "3"
 services:
   app:
-    build: .
-    volumes:
-      - ../docker_test:/workspace/docker_test
-    runtime: nvidia
+    image: my-gpu-dev-env
+    container_name: my-dev-container
+    command: bash
     tty: true
+    stdin_open: true
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

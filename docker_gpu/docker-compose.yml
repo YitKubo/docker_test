@@ -3,7 +3,7 @@ services:
   app:
     image: my-gpu-dev-env
     container_name: my-dev-container
-    command: bash
+    command: bash -c "git clone https://github.com/YitKubo/docker_test.git /workspace/docker_test 2>/dev/null || true && bash"
     tty: true
     stdin_open: true
     volumes:

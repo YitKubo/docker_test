@@ -35,17 +35,33 @@ CMD ["bash"]
 docker build -t my-gpu-dev-env .
 ```
 
+### コマンド解説
+
+- `docker build` : Dockerイメージをビルド（作成）
+- `-t my-gpu-dev-env` : 作成するイメージに `my-gpu-dev-env` という名前（タグ）を付ける
+- `.` : 現在のディレクトリ（Dockerfileがある場所）をビルドコンテキストとして指定
+
 ---
 
 ## ✅ 4. コンテナを起動（Git管理コードをマウント）
 
 ```bash
-docker run --gpus all -it \
+docker run --gpus all -dit \
   --name my-dev-container \
   -v $(pwd):/workspace \
   -w /workspace \
   my-gpu-dev-env
 ```
+
+### コマンド解説
+
+- `docker run` : 新しいコンテナを起動
+- `--gpus all` : すべてのGPUをコンテナに割り当て
+- `-it` : 対話型端末で起動（`-i`は標準入力を開いたまま、`-t`は擬似ターミナルを割り当て）
+- `--name my-dev-container` : コンテナ名を `my-dev-container` に指定
+- `-v $(pwd):/workspace` : 現在のディレクトリをコンテナ内 `/workspace` にマウント（ホストとコンテナでファイル共有）
+- `-w /workspace` : 作業ディレクトリを `/workspace` に設定
+- `my-gpu-dev-env` : 使用するDockerイメージ名
 
 ---
 

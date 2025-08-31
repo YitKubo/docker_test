@@ -1,0 +1,11 @@
+{
+    "python.defaultInterpreterPath": "/usr/bin/python3.10",
+    "python.terminal.activateEnvironment": false,
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "files.watcherExclude": {
+        "**/mlruns/**": true,
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true
+    }
+}

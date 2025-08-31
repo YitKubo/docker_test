@@ -1,14 +1,10 @@
 version: "3.8"
 services:
-  app:
+  gpu-dev:
     image: my-gpu-dev-env
     container_name: my-dev-container
-    command: bash -c "git clone https://github.com/YitKubo/docker_test.git /workspace/docker_test 2>/dev/null || true && bash"
-    tty: true
     stdin_open: true
-    volumes:
-      - .:/workspace
-    working_dir: /workspace
+    tty: true
     deploy:
       resources:
         reservations:
@@ -16,3 +12,7 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: bash

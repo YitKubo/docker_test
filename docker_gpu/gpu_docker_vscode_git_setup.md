@@ -46,34 +46,52 @@ docker build -t my-gpu-dev-env .
 ## ✅ 4. コンテナを起動（Git管理コードをマウント）
 
 ```bash
-docker rm my-dev-container  # ← 既存のがあるなら削除
-docker run --gpus all -dit \
-  --name my-dev-container \
-  -v $(pwd):/workspace \
-  -w /workspace \
-  my-gpu-dev-env
+# Docker Composeでコンテナを起動（イメージは docker-compose.yml で指定済み）
+docker compose up -d
 
-docker start -ai my-dev-container
-python3 --version
+# コンテナに入る
+docker compose exec gpu-dev bash
 ```
 
 ### コマンド解説
 
-- `docker run` : 新しいコンテナを起動
-- `--gpus all` : すべてのGPUをコンテナに割り当て
-- `-it` : 対話型端末で起動（`-i`は標準入力を開いたまま、`-t`は擬似ターミナルを割り当て）
-- `--name my-dev-container` : コンテナ名を `my-dev-container` に指定
-- `-v $(pwd):/workspace` : 現在のディレクトリをコンテナ内 `/workspace` にマウント（ホストとコンテナでファイル共有）
-- `-w /workspace` : 作業ディレクトリを `/workspace` に設定
-- `my-gpu-dev-env` : 使用するDockerイメージ名
+- `docker compose up -d` : `docker-compose.yml`の設定でコンテナをバックグラウンド起動
+- `docker compose exec gpu-dev bash` : 起動中の`gpu-dev`サービスでbashを実行
+- GPU設定、マウント、作業ディレクトリはすべて`docker-compose.yml`で管理済み
 
 ---
 
 ## ✅ 5. VSCodeからアタッチして編集(起動中のコンテナに入る!!) 
 
+### 🎯 方法1: 自動化（推奨） - Dev Container使用
+
+1. VSCodeで`docker_gpu`フォルダを開く
+2. 右下に表示される「**Reopen in Container**」をクリック
+3. 自動でコンテナ起動 + 接続完了！
+
+> 📁 `.devcontainer/devcontainer.json` で全て自動化済み
+
+### 🔧 方法2: 手動 - 既存のコンテナにアタッチ
+
 1. 左下「><」クリック → `Attach to Running Container...`
 2. `my-dev-container` を選択
 3. プロジェクト内のファイルが `/workspace` に見える
+
+#### 🚨 トラブルシューティング
+
+**VSCode Serverのセットアップで止まる場合：**
+
+```bash
+# 1. コンテナを再起動
+docker compose down
+docker compose up -d
+
+# 2. VSCode Serverキャッシュをクリア
+rm -rf ~/.vscode-server
+docker compose exec gpu-dev rm -rf /root/.vscode-server
+
+# 3. VSCodeを再起動してから再接続
+```
 
 ---
 
